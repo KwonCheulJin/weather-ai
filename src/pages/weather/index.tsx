@@ -1,6 +1,7 @@
 import { Weather, WeatherAdapter } from '@/api/weather';
 import WeatherMain from '@/domains/weather';
 import { mergeForecastWithShortTermForecast } from '@/domains/weather/utils';
+import dayjs from 'dayjs';
 import { GetStaticProps } from 'next/types';
 import { ComponentProps } from 'react';
 
@@ -25,7 +26,12 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     short_term_forecast
   );
   return {
-    props: { live, today_temperature, merged_forecast },
+    props: {
+      live,
+      today_temperature,
+      merged_forecast,
+      update_time: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+    },
   };
 };
 
