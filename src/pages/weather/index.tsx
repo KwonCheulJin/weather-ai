@@ -1,7 +1,7 @@
 import { Weather, WeatherAdapter } from '@/api/weather';
 import WeatherMain from '@/domains/weather';
 import {
-  getRainyType,
+  getWeatherPrompt,
   mergeForecastWithShortTermForecast,
 } from '@/domains/weather/utils';
 import dayjs from 'dayjs';
@@ -32,8 +32,7 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
 
   const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-  const sky = getRainyType(live.PTY.obsrValue);
-  const prompt = `하늘 정보를 바탕으로 ${sky} 하늘 풍경 사진을 현재 한국 시간에 맞게 그려봐`;
+  const prompt = getWeatherPrompt(live.PTY.obsrValue);
   const images = await openai.images.generate({
     model: 'dall-e-2',
     n: 1,

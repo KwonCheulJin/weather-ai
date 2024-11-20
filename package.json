@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "date-fns-tz": "^3.2.0",
     "dayjs": "^1.11.13",
     "lodash-es": "^4.17.21",
     "next": "13.5.6",
