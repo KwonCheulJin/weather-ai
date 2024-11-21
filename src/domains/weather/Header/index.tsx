@@ -11,7 +11,7 @@ export default function Header(props: Props) {
 
   return (
     <header className={styles.container}>
-      <h1 className={styles.title}>현재 날찌</h1>
+      <h1 className={styles.title}>현재 날씨</h1>
       <span className={styles.update}>
         업데이트 {dayjs(update_time).fromNow()}
       </span>

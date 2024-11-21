@@ -5,9 +5,16 @@ import {
   mergeForecastWithShortTermForecast,
 } from '@/domains/weather/utils';
 import dayjs from 'dayjs';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
 import { GetStaticProps } from 'next/types';
 import OpenAI from 'openai';
 import { ComponentProps } from 'react';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
+dayjs.tz.setDefault('Asia/Seoul');
 
 interface Props extends ComponentProps<typeof WeatherMain> {}
 
@@ -49,9 +56,10 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
       live,
       today_temperature,
       merged_forecast,
-      update_time: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+      update_time: dayjs.tz().format('YYYY-MM-DD HH:mm:ss'),
       image_data_url,
     },
+    revalidate: 60 * 60,
   };
 };
 
