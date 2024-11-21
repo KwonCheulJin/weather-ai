@@ -73,57 +73,36 @@ export function getKoreaTime(date?: Date): Date {
   return koreaTime;
 }
 
+export const getWeatherTimeToString = (time: number) => {
+  if (time >= 5 && time < 12) return '오전';
+  if (time >= 12 && time < 16) return '오후';
+  if (time >= 16 && time < 19) return '저녁';
+  return '밤';
+};
+
+const weatherCodeMap: Readonly<Record<string, string>> = {
+  '0': 'bright and unobstructed view of the sky.',
+  '1': 'dark clouds with streaks of rain falling.',
+  '2': 'a mix of rain and snow falling under gray skies.',
+  '3': 'soft snowflakes gently falling from pale gray skies.',
+  '4': 'short bursts of rain under partly cloudy skies.',
+  '5': 'a few light raindrops falling with occasional breaks in the clouds.',
+  '6': 'a combination of raindrops and snowflakes drifting through the air.',
+  '7': 'light snowflakes swirling in the breeze.',
+};
+
+const weatherTimeMap: Readonly<Record<string, string>> = {
+  오전: 'morning sky with gentle sunlight breaking through, creating a fresh atmosphere.',
+  오후: 'bright afternoon sky with clear visibility and strong sunlight.',
+  저녁: 'sunset sky with rich golden hues melting into the horizon.',
+  밤: 'night sky with twinkling stars and moonlight casting soft shadows.',
+};
+
 export function getWeatherPrompt(weatherCode: string): string {
   const koreaTime = getKoreaTime().getHours();
-  let timeDescription = '';
-  let weatherDescription = '';
-
-  // 시간대에 따른 묘사
-  if (koreaTime >= 6 && koreaTime < 11) {
-    timeDescription =
-      'soft pastel colors like pink, orange, and pale blue, with gentle sunlight.';
-  } else if (koreaTime >= 12 && koreaTime < 15) {
-    timeDescription = 'a vibrant blue sky with fluffy white clouds.';
-  } else if (koreaTime >= 18 && koreaTime < 20) {
-    timeDescription =
-      'warm tones of orange, pink, and purple blending into night.';
-  } else {
-    timeDescription = 'a deep navy blue sky with visible stars and the moon.';
-  }
-
-  // 날씨 코드에 따른 묘사
-  switch (weatherCode) {
-    case '0': // 맑음
-      weatherDescription = 'bright and unobstructed view of the sky.';
-      break;
-    case '1': // 비
-      weatherDescription = 'dark clouds with streaks of rain falling.';
-      break;
-    case '2': // 비/눈
-      weatherDescription = 'a mix of rain and snow falling under gray skies.';
-      break;
-    case '3': // 눈
-      weatherDescription =
-        'soft snowflakes gently falling from pale gray skies.';
-      break;
-    case '4': // 소나기
-      weatherDescription = 'short bursts of rain under partly cloudy skies.';
-      break;
-    case '5': // 빗방울
-      weatherDescription =
-        'a few light raindrops falling with occasional breaks in the clouds.';
-      break;
-    case '6': // 빗방울눈날림
-      weatherDescription =
-        'a combination of raindrops and snowflakes drifting through the air.';
-      break;
-    case '7': // 눈날림
-      weatherDescription = 'light snowflakes swirling in the breeze.';
-      break;
-    default: // 알 수 없는 날씨
-      weatherDescription = 'neutral weather conditions.';
-      break;
-  }
+  let timeDescription = weatherTimeMap[getWeatherTimeToString(koreaTime)];
+  let weatherDescription =
+    weatherCodeMap[weatherCode] ?? 'neutral weather conditions.';
 
   return `A realistic sky background for a weather app, showing ${timeDescription} The weather is ${weatherDescription}`;
 }

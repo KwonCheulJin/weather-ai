@@ -1,4 +1,5 @@
 import { WeatherAdapterInterface } from '@/api/weather/types';
+import Layout from '@/components/Layout';
 import ForecastSection from '@/domains/weather/ForecastSection';
 import Header from '@/domains/weather/Header';
 import BackgroundImage from '@/domains/weather/Header/BackgroundImage';
@@ -15,7 +16,7 @@ interface Props {
   image_data_url?: string;
 }
 
-export default function WeatherMain(props: Props) {
+function WeatherMain(props: Props) {
   const {
     live,
     today_temperature,
@@ -31,5 +32,13 @@ export default function WeatherMain(props: Props) {
       <LiveSection live={live} today_temperature={today_temperature} />
       <ForecastSection forecast_list={merged_forecast} />
     </main>
+  );
+}
+
+export default function WeatherMainWithLayout(props: Props) {
+  return (
+    <Layout>
+      <WeatherMain {...props} />
+    </Layout>
   );
 }

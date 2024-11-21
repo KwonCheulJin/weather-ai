@@ -1,0 +1,42 @@
+.container {
+  width: 100%;
+  overflow-x: auto;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 16px;
+}
+
+.item_list {
+  display: flex;
+  column-gap: 24px;
+}
+
+.item {
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 19px;
+}
+.item:last-child {
+  padding-right: 16px;
+}
+
+.item_title {
+  font-weight: 700;
+}
+
+.item > span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  white-space: nowrap;
+  height: 40px;
+}
+.item_title > span {
+  align-items: flex-start;
+}
+.unit {
+  font-size: 12px;
+  font-weight: 400;
+  display: block;
+}
