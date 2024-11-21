@@ -1,6 +1,7 @@
 import { WeatherAdapterInterface } from '@/api/weather/types';
 import ForecastSection from '@/domains/weather/ForecastSection';
 import Header from '@/domains/weather/Header';
+import BackgroundImage from '@/domains/weather/Header/BackgroundImage';
 import LiveSection from '@/domains/weather/LiveSection';
 import { mergeForecastWithShortTermForecast } from '@/domains/weather/utils';
 
@@ -11,16 +12,21 @@ interface Props {
   >;
   merged_forecast: ReturnType<typeof mergeForecastWithShortTermForecast>;
   update_time: string;
-  image?: string;
+  image_data_url?: string;
 }
 
 export default function WeatherMain(props: Props) {
-  const { live, today_temperature, merged_forecast, update_time, image } =
-    props;
+  const {
+    live,
+    today_temperature,
+    merged_forecast,
+    update_time,
+    image_data_url,
+  } = props;
 
   return (
     <main>
-      <img src={`data:image/jpeg;base64,${image}`} alt="weather" />
+      <BackgroundImage image_data_url={image_data_url} />
       <Header update_time={update_time} />
       <LiveSection live={live} today_temperature={today_temperature} />
       <ForecastSection forecast_list={merged_forecast} />

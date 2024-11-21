@@ -79,7 +79,7 @@ export function getWeatherPrompt(weatherCode: string): string {
   let weatherDescription = '';
 
   // 시간대에 따른 묘사
-  if (koreaTime >= 6 && koreaTime < 9) {
+  if (koreaTime >= 6 && koreaTime < 11) {
     timeDescription =
       'soft pastel colors like pink, orange, and pale blue, with gentle sunlight.';
   } else if (koreaTime >= 12 && koreaTime < 15) {

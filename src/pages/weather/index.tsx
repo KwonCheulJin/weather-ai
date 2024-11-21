@@ -41,14 +41,16 @@ export const getStaticProps: GetStaticProps<Props> = async () => {
     prompt,
     response_format: 'b64_json',
   });
-  const image = images.data.at(0)?.b64_json;
+  const image_data_url = `data:image/jpeg;base64,${
+    images.data.at(0)?.b64_json
+  }`;
   return {
     props: {
       live,
       today_temperature,
       merged_forecast,
       update_time: dayjs().format('YYYY-MM-DD HH:mm:ss'),
-      image,
+      image_data_url,
     },
   };
 };
